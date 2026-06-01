@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HORROR — Find Your Fear</title>
+<link rel="stylesheet" href="style.css">
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Oswald:wght@300;400;500;600;700&family=Special+Elite&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<!-- BLOOD DRIP OVERLAY -->
+<div class="blood-overlay" id="blood-overlay"></div>
+
+<!-- PARTICLE CANVAS -->
+<canvas id="particle-canvas"></canvas>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-trail"></div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-icon">💀</span>
+      <div class="logo-text">
+        <span class="logo-main">HORROR</span>
+        <span class="logo-sub">FIND YOUR FEAR</span>
+      </div>
+    </div>
+    <div class="header-stats">
+      <div class="stat-item"><span id="total-count">0</span><span>Movies</span></div>
+      <div class="stat-item"><span id="country-count">0</span><span>Countries</span></div>
+      <div class="stat-item"><span id="genre-count">0</span><span>Sub-genres</span></div>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <canvas id="hero-canvas"></canvas>
+  <div class="hero-content">
+    <h1 class="hero-title" id="hero-title">DARE TO<br><span class="glitch-text" data-text="WATCH">WATCH</span></h1>
+    <p class="hero-sub">The ultimate horror movie database. Every country. Every language. Every fear.</p>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" id="search-input" placeholder="Search horror movies..." autocomplete="off">
+      <button class="search-clear" id="search-clear" onclick="clearSearch()">✕</button>
+    </div>
+  </div>
+</section>
+
+<!-- FILTERS -->
+<div class="filters-bar">
+  <div class="filters-inner">
+    <div class="filter-group">
+      <label class="filter-label">SUB-GENRE</label>
+      <div class="filter-chips" id="genre-chips"></div>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">COUNTRY</label>
+      <select id="country-filter" onchange="applyFilters()">
+        <option value="">All Countries</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">LANGUAGE</label>
+      <select id="lang-filter" onchange="applyFilters()">
+        <option value="">All Languages</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">YEAR</label>
+      <select id="year-filter" onchange="applyFilters()">
+        <option value="">All Years</option>
+        <option value="2020s">2020s</option>
+        <option value="2010s">2010s</option>
+        <option value="2000s">2000s</option>
+        <option value="1990s">1990s</option>
+        <option value="1980s">1980s</option>
+        <option value="older">Before 1980</option>
+      </select>
+    </div>
+    <div class="filter-group">
+      <label class="filter-label">SORT BY</label>
+      <select id="sort-filter" onchange="applyFilters()">
+        <option value="rating">Top Rated</option>
+        <option value="year-desc">Newest First</option>
+        <option value="year-asc">Oldest First</option>
+        <option value="title">A-Z</option>
+      </select>
+    </div>
+    <button class="reset-btn" onclick="resetFilters()">↺ Reset</button>
+  </div>
+</div>
+
+<!-- RESULTS INFO -->
+<div class="results-bar">
+  <span id="results-info">Loading...</span>
+  <div class="view-toggle">
+    <button class="view-btn active" id="grid-btn" onclick="setView('grid')">⊞</button>
+    <button class="view-btn" id="list-btn" onclick="setView('list')">☰</button>
+  </div>
+</div>
+
+<!-- MOVIE GRID -->
+<main class="movies-container" id="movies-container"></main>
+
+<!-- MOVIE MODAL -->
+<div id="modal-overlay" class="modal-overlay hidden" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-poster" id="modal-poster"></div>
+    <div class="modal-info">
+      <div class="modal-genre-badge" id="modal-genre"></div>
+      <h2 class="modal-title" id="modal-title"></h2>
+      <div class="modal-meta" id="modal-meta"></div>
+      <div class="modal-rating" id="modal-rating"></div>
+      <p class="modal-desc" id="modal-desc"></p>
+      <div class="modal-tags" id="modal-tags"></div>
+      <a id="modal-link" class="modal-watch-btn" href="#" target="_blank">🎬 Find on IMDb</a>
+    </div>
+  </div>
+</div>
+
+<!-- NO RESULTS -->
+<div id="no-results" class="no-results hidden">
+  <div class="no-results-icon">👻</div>
+  <h3>No movies found</h3>
+  <p>Try different filters or search terms</p>
+</div>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <p>Built by <span>Tanzim Hossain Ayon</span> · BRAC University · IEEE Researcher</p>
+  <p class="footer-sub">🌐 <a href="https://tanzimhossainayon.vercel.app" target="_blank">tanzimhossainayon.vercel.app</a></p>
+</footer>
+
+<script src="data.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
